@@ -134,4 +134,3 @@ variable "sleep_amount" {
   description = "Time duration to delay resource creation"
   default     = "6m"
 }
-
