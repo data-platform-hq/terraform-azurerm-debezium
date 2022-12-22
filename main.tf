@@ -71,7 +71,7 @@ resource "azurerm_mssql_firewall_rule" "this" {
 }
 
 resource "time_sleep" "this" {
-  create_duration = "6m"
+  create_duration = var.sleep_amount
 
   lifecycle {
     replace_triggered_by = [

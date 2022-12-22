@@ -58,29 +58,29 @@ variable "azure_sql_user" {
 
 variable "azure_sql_password" {
   type        = string
-  description = "Azure sql password"
+  description = "Azure sql user password"
 }
 
 variable "azure_sql_id" {
   type        = string
-  description = "Azure sql server"
+  description = "Azure sql server id"
 }
 
 variable "key_type" {
   type        = string
-  description = "Key Type to use for this Key Vault Key: [EC|EC-HSM|Oct|RSA|RSA-HSM]"
+  description = "Key Type to use for this Key Vault Key: (EC,EC-HSM,RSA,RSA-HSM)"
   default     = "RSA"
 }
 
 variable "key_size" {
   type        = number
-  description = "Size of the RSA key to create in bytes, requied for RSA & RSA-HSM: [1024|2048]"
+  description = "Size of the RSA key to create in bytes, requied for RSA & RSA-HSM: (1024 - 2048)"
   default     = 2048
 }
 
 variable "key_opts" {
   type        = list(string)
-  description = "JSON web key operations: [decrypt|encrypt|sign|unwrapKey|verify|wrapKey]"
+  description = "JSON web key operations: (decrypt,encrypt,sign,unwrapKey,verify,wrapKey)"
   default = [
     "decrypt",
     "encrypt",
@@ -93,7 +93,7 @@ variable "key_opts" {
 
 variable "access_policy_permissions" {
   type        = list(string)
-  description = "JSON web key operations: [decrypt|encrypt|sign|unwrapKey|verify|wrapKey]"
+  description = "List of key permissions"
   default = [
     "Get",
     "List",
@@ -127,5 +127,11 @@ variable "tenant_id" {
     condition     = length(var.tenant_id) == 36 || length(var.tenant_id) == 0
     error_message = "UUID has to be either in nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn format or empty string"
   }
+}
+
+variable "sleep_amount" {
+  type        = string
+  description = "Time duration to delay resource creation"
+  default     = "6m"
 }
 
