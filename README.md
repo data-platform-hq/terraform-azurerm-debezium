@@ -55,11 +55,14 @@ depends_on = [module.eventhub]
 }
 ```
 <!-- BEGIN_TF_DOCS -->
+## Requirements
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.6 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.24.0 |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.23.0 |
+
+
 
 ## Providers
 
@@ -108,7 +111,12 @@ No modules.
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | n/a | yes |
 
 ## Outputs
-there is no Outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_name"></a> [name](#output\_name) | Name of the Container |
+| <a name="output_id"></a> [id](#output\_id) | Id of the Container |
+
+
 
 <!-- END_TF_DOCS -->
 
