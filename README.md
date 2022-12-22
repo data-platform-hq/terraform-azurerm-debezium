@@ -1,4 +1,4 @@
-# Azure Event Hubs Terraform module
+# Azure Debezium Container Terraform module
 Terraform module for creation Debezium Container
 
 ## Usage
