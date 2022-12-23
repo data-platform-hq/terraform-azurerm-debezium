@@ -21,6 +21,7 @@ resource "azurerm_container_group" "this" {
   name                = "debezium-${var.project}-${var.env}-${var.location}"
   location            = var.location
   resource_group_name = var.resource_group
+  tags                = var.tags
   ip_address_type     = "Public"
   os_type             = "Linux"
   restart_policy      = "Never"

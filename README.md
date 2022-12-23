@@ -97,9 +97,9 @@ No modules.
 ## Outputs
 | Name | Description |
 |------|-------------|
-| <a name="output_name"></a> [name](#output\_name) | Name of the Container |
-| <a name="output_id"></a> [id](#output\_id) | Id of the Container |
-
+| <a name="output_container_name"></a> [name](#output\_container\_name) | Name of the Container |
+| <a name="output_container_id"></a> [id](#output\_container\_id) | Id of the Container |
+| <a name="output_status_code"></a> [id](#output\_status\_code) | HTTP response status code |
 
 
 <!-- END_TF_DOCS -->
