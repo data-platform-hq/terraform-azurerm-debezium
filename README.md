@@ -12,11 +12,16 @@ locals {
   tags = {
     environment = "development"
   }
+  
   sql_database              = "WideWorldImporters-Standard"
   mssql_tables              = ["schema_example.table_name_example"]
-  container_group_object_id = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" # Object id of Azure managed enterprise application 'Azure Container Instance Service'
+  
+  # Object id of Azure-managed enterprise application 'Azure Container Instance Service'
+  container_group_object_id = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" 
+  
+  # Here, create map of target Key Vault name to it's id:
   key_vault_name_to_id_map  = { 
-    (data.terraform_remote_state.base.outputs.key_vault.name) = data.terraform_remote_state.base.outputs.key_vault.id 
+    (module.key_vault.name) = module.key_vault.id 
   }
 }
 
