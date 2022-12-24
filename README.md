@@ -47,8 +47,8 @@ module "debezium" {
   resource_group             = "example-rg"
   tags                       = local.tags
   
-  eventhub_name              = module.eventhub.name
-  eventhub_connection_string = module.eventhub.connection_string
+  eventhub_name              = module.eventhub.namespace_name
+  eventhub_connection_string = module.eventhub.namespace_connection_string
   
   # CMK encryption specific variables
   key_vault_id               = local.key_vault_name_to_id_map
@@ -62,8 +62,6 @@ module "debezium" {
   mssql_password      = "example-azure-sql-password"
   mssql_database_name = local.mssql_db_name
   sql_tables          = local.mssql_tables
-  
-  depends_on = [module.eventhub]
 }
 ```
 
