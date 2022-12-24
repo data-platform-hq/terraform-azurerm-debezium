@@ -1,34 +1,62 @@
-# Azure Debezium Container Terraform module
-Terraform module for creation Debezium Container
+# Azure Container Instance with Debezium Terraform module
+Terraform module for creation of Azure Container Instance with Debezium Connector
 
 ## Usage
 This module is provisioning Debezium container connect to Azure Sql Database and Azure Event Hub
 
 ```
 locals {
-  sql_database = "WideWorldImporters-Standard"
-  mssql_tables = ["shema_example.table_name_example"]
+  eventhub_topic = {
+    db-history-topic = { partition_count = 1, message_retention = 7, permissions = ["listen","send","manage"] }
+  }
+  tags = {
+    environment = "development"
+  }
+  sql_database              = "WideWorldImporters-Standard"
+  mssql_tables              = ["schema_example.table_name_example"]
+  container_group_object_id = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" # Object id of Azure managed enterprise application 'Azure Container Instance Service'
+  key_vault_name_to_id_map  = { 
+    (data.terraform_remote_state.base.outputs.key_vault.name) = data.terraform_remote_state.base.outputs.key_vault.id 
+  }
+}
+
+data "azurerm_client_config" "current" {}
+
+module "eventhub" {
+  source  = "data-platform-hq/eventhub/azurerm"
+
+  project        = "datahq"
+  env            = "dev"
+  location       = "eastus"
+  tags           = local.tags
+  resource_group = "example-rg"
+  eventhub_topic = local.eventhub_topic
 }
 
 module "debezium" {
   source   = "data-platform-hq/terraform-azurerm-debezium
 
-  project                   = "datahq"
-  env                       = "dev"
-  location                  = "eastus"
-  resource_group            = module.resource_group.name
-  tags                      = var.tags
-  connection_string         = module.eventhub[0].connection_string
-  eventhub_name             = module.eventhub[0].name
-  key_vault_id              = var.debezium_encryption_key == true ? var.key_vault_map : {}
-  tenant_id                 = data.azurerm_client_config.current.tenant_id
-  container_group_object_id = var.container_group_object_id
-  azure_sql_server          = module.azure_sql.name
-  azure_sql_id              = module.azure_sql.id
-  azure_sql_user            = data.azurerm_key_vault_secret.secret_sql_server_admin_username.value
-  azure_sql_password        = data.azurerm_key_vault_secret.secret_sql_server_admin_password.value
-  sql_database              = local.mssql_db_name
-  sql_table                 = local.mssql_tables
+  project                    = "datahq"
+  env                        = "dev"
+  location                   = "eastus"
+  resource_group             = "example-rg"
+  tags                       = local.tags
+  
+  eventhub_name              = module.eventhub.name
+  eventhub_connection_string = module.eventhub.connection_string
+  
+  # CMK encryption specific variables
+  key_vault_id               = local.key_vault_name_to_id_map
+  tenant_id                  = data.azurerm_client_config.current.tenant_id
+  container_group_object_id  = local.container_group_object_id
+  
+  # Azure SQL specific variables
+  mssql_server_name   = "example-server"
+  mssql_server_id     = "example-id"
+  mssql_username      = "admin"
+  mssql_password      = "example-azure-sql-password"
+  mssql_database_name = local.mssql_db_name
+  sql_tables          = local.mssql_tables
   
   depends_on = [module.eventhub]
 }

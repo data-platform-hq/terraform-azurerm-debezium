@@ -1,5 +1,5 @@
 resource "azurerm_key_vault_key" "this" {
-  for_each = length(var.tenant_id) == 36 && length(var.container_group_object_id) == 36 ? var.key_vault_id : {}
+  for_each = length(var.tenant_id) != 0 && length(var.container_group_object_id) != 0 ? var.key_vault_id : {}
 
   name         = "debezium-${var.project}-${var.env}-${var.location}"
   key_type     = var.key_type
@@ -9,7 +9,7 @@ resource "azurerm_key_vault_key" "this" {
 }
 
 resource "azurerm_key_vault_access_policy" "this" {
-  for_each = length(var.tenant_id) == 36 && length(var.container_group_object_id) == 36 ? var.key_vault_id : {}
+  for_each = length(var.tenant_id) != 0 && length(var.container_group_object_id) != 0 ? var.key_vault_id : {}
 
   key_vault_id    = each.value
   tenant_id       = var.tenant_id
@@ -44,9 +44,9 @@ resource "azurerm_container_group" "this" {
 
     environment_variables = {
       BOOTSTRAP_SERVERS : "${var.eventhub_name}.servicebus.windows.net:9093"
-      CONNECT_REST_ADVERTISED_HOST_NAME : "debezium-eventhub-1"
+      CONNECT_REST_ADVERTISED_HOST_NAME : "azure-container-instance-debezium"
       CONNECT_REST_PORT : "8083"
-      CONNECT_GROUP_ID : "debezium-eventhub-1"
+      CONNECT_GROUP_ID : "azure-container-instance-debezium"
       CONFIG_STORAGE_TOPIC : "config-storage"
       OFFSET_STORAGE_TOPIC : "offsets-storage"
       STATUS_STORAGE_TOPIC : "status-storage"
@@ -66,7 +66,7 @@ resource "azurerm_container_group" "this" {
 
 resource "azurerm_mssql_firewall_rule" "this" {
   name             = "debezium-${var.project}-${var.env}-${var.location}"
-  server_id        = var.azure_sql_id
+  server_id        = var.mssql_server_id
   start_ip_address = azurerm_container_group.this.ip_address
   end_ip_address   = azurerm_container_group.this.ip_address
 }
@@ -83,7 +83,7 @@ resource "time_sleep" "this" {
 }
 
 locals {
-  sql_table_list = join(",", var.sql_table)
+  sql_table_list = join(",", var.sql_tables)
 }
 
 data "http" "this" {
@@ -97,11 +97,11 @@ data "http" "this" {
     "name" : "sql-server",
     "config" : {
       "connector.class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-      "database.hostname" : "${var.azure_sql_server}.database.windows.net",
+      "database.hostname" : "${var.mssql_server_name}.database.windows.net",
       "database.port" : "1433",
-      "database.user" : (var.azure_sql_user),
-      "database.password" : (var.azure_sql_password),
-      "database.dbname" : (var.sql_database),
+      "database.user" : (var.mssql_username),
+      "database.password" : (var.mssql_password),
+      "database.dbname" : (var.mssql_database_name),
       "database.server.name" : "cdc",
       "table.include.list" : (local.sql_table_list),
       "decimal.handling.mode" : "double",

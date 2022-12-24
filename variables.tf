@@ -24,18 +24,23 @@ variable "tags" {
   default     = {}
 }
 
-variable "azure_sql_server" {
+variable "mssql_server_name" {
   type        = string
   description = "Azure sql server name"
 }
 
-variable "sql_database" {
+variable "mssql_server_id" {
+  type        = string
+  description = "Azure sql server id"
+}
+
+variable "mssql_database_name" {
   type        = string
   description = "Azure sql database"
   default     = ""
 }
 
-variable "sql_table" {
+variable "sql_tables" {
   type        = list(string)
   description = "Azure sql tables names"
   default     = []
@@ -51,19 +56,14 @@ variable "eventhub_name" {
   description = "Azure eventhub name"
 }
 
-variable "azure_sql_user" {
+variable "mssql_username" {
   type        = string
   description = "Azure sql user"
 }
 
-variable "azure_sql_password" {
+variable "mssql_password" {
   type        = string
   description = "Azure sql user password"
-}
-
-variable "azure_sql_id" {
-  type        = string
-  description = "Azure sql server id"
 }
 
 variable "key_type" {
