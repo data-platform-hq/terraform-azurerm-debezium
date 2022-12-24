@@ -13,8 +13,8 @@ locals {
     environment = "development"
   }
   
-  sql_database              = "WideWorldImporters-Standard"
-  mssql_tables              = ["schema_example.table_name_example"]
+  mssql_database_name = "WideWorldImporters-Standard"
+  mssql_tables        = ["schema_example.table_name_example"]
   
   # Object id of Azure-managed enterprise application 'Azure Container Instance Service'
   container_group_object_id = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" 
