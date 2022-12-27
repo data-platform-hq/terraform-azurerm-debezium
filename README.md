@@ -107,19 +107,19 @@ No modules.
 | <a name="input_env"></a> [env](#input\_env) | Environment name | `string` | n/a | yes |
 | <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | The name of the resource group in which the Log Analytics workspace is created | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists | `string` | n/a | yes |
-| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | map | {} | no |
-| <a name="input_azure_sql_server"></a> [azure\_sql\_server](#input\_azure\_sql\_server) | Azure sql server name | `string` | n/a | yes |
-| <a name="input_sql_database"></a> [sql\_database](#input\_sql\_database) | Azure sql database | `string` | "example-database" | no |
-| <a name="input_sql_table"></a> [sql\_table](#input\_sql\_table) | Azure sql tables names | list(string) | ["dbo.example-table"] | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | {} | no |
+| <a name="input_mssql_server_name"></a> [mssql\_server\_name](#input\_mssql\_server\_name) | Azure sql server name | `string` | n/a | yes |
+| <a name="input_mssql_server_id"></a> [mssql\_server\_id](#input\_mssql\_server\_id) | Azure sql server id | `string` | n/a | yes |
+| <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | "" | no |
+| <a name="input_sql_tables"></a> [sql\_tables](#input\_sql\_tables) | Azure sql tables names | `list(string)` | [] | no |
 | <a name="input_connection_string"></a> [connection\_string](#input\_connection\_string) | Azurerm eventhub namespace connection string | `string` | n/a | yes |
 | <a name="input_eventhub_name"></a> [eventhub\_name](#input\_eventhub\_name) | Azure eventhub name | `string` | n/a | yes |
-| <a name="input_azure_sql_user"></a> [azure\_sql\_user](#input\_azure\_sql\_user) | Azure sql user | `string` | n/a | yes |
-| <a name="input_azure_sql_password"></a> [azure\_sql\_password](#input\_azure\_sql\_password) | Azure sql user password | `string` | n/a | yes |
-| <a name="input_azure_sql_id"></a> [azure\_sql\_id](#input\_azure\_sql\_id) | Azure sql server id | `string` | n/a | yes |
+| <a name="input_mssql_username"></a> [mssql\_username](#input\_mssql\_username) | Azure sql user | `string` | n/a | yes |
+| <a name="input_mssql_password"></a> [mssql\_password](#input\_mssql\_password) | Azure sql user password | `string` | n/a | yes |
 | <a name="input_key_type"></a> [key\_type](#input\_key\_type) | Key Type to use for this Key Vault Key: (EC,EC-HSM,RSA,RSA-HSM) | `string` | "RSA" | no |
 | <a name="input_key_size"></a> [key\_size](#input\_key\_size) | Size of the RSA key to create in bytes, requied for RSA & RSA-HSM: (1024 - 2048) | `number`| 2048 | no |
 | <a name="input_key_opts"></a> [key\_opts](#input\_key\_opts) | JSON web key operations: (decrypt,encrypt,sign,unwrapKey,verify,wrapKey) | `list(string)` | <pre>[<br>  "decrypt",<br>  "encrypt",<br>  "sign",<br>  "unwrapKey",<br>  "verify",<br>  "wrapKey"<br>]</pre> | no |
-| <a name="input_access_policy_permissions"></a> [key\_access\_policy\_permissions](#input\_access\_policy\_permissions) | List of key permissions | `list(string)` | <pre>[<br>  "Get",<br>  "List",<br>  "Verify",<br>  "WrapKey",<br>  "UnwrapKey"<br>]</pre> | no |
+| <a name="input_access_policy_permissions"></a> [access\_policy\_permissions](#input\_access\_policy\_permissions) | List of key permissions | `list(string)` | <pre>[<br>  "Get",<br>  "List",<br>  "Verify",<br>  "WrapKey",<br>  "UnwrapKey"<br>]</pre> | no |
 | <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | Key Vault Name to ID map | `map(string)` | {} | no |
 | <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | " " | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | " " | no |
@@ -128,9 +128,12 @@ No modules.
 ## Outputs
 | Name | Description |
 |------|-------------|
-| <a name="output_container_name"></a> [name](#output\_container\_name) | Name of the Container |
-| <a name="output_container_id"></a> [id](#output\_container\_id) | Id of the Container |
-| <a name="output_status_code"></a> [id](#output\_status\_code) | HTTP response status code |
+| <a name="output_name"></a> [name](#output\_name) | Name of the Azure Container Instance where Debezium executes |
+| <a name="output_container_id"></a> [id](#output\_id) | Id of the Azure Container Instance where Debezium executes |
+| <a name="output_ip_address"></a> [ip\_address](#output\_ip\_address) | Public IP address of the Azure Container Instance where Debezium executes |
+| <a name="output_identity"></a> [identity](#output\_identity) | List of identities assigned to the Azure Container Instance |
+| <a name="output_cmk_key_id"></a> [cmk\_key\_id](#output\_cmk\_key\_id) | Customer Managed Key Id, used to encrypt disks on Azure Container Instance |
+| <a name="output_status_code"></a> [status\_code](#output\_status\_code) | HTTP response status code |
 
 
 <!-- END_TF_DOCS -->
