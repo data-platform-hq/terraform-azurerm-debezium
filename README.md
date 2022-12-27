@@ -110,7 +110,7 @@ No modules.
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | {} | no |
 | <a name="input_mssql_server_name"></a> [mssql\_server\_name](#input\_mssql\_server\_name) | Azure sql server name | `string` | n/a | yes |
 | <a name="input_mssql_server_id"></a> [mssql\_server\_id](#input\_mssql\_server\_id) | Azure sql server id | `string` | n/a | yes |
-| <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | "" | no |
+| <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | " " | no |
 | <a name="input_sql_tables"></a> [sql\_tables](#input\_sql\_tables) | Azure sql tables names | `list(string)` | [] | no |
 | <a name="input_connection_string"></a> [connection\_string](#input\_connection\_string) | Azurerm eventhub namespace connection string | `string` | n/a | yes |
 | <a name="input_eventhub_name"></a> [eventhub\_name](#input\_eventhub\_name) | Azure eventhub name | `string` | n/a | yes |
@@ -123,7 +123,7 @@ No modules.
 | <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | Key Vault Name to ID map | `map(string)` | {} | no |
 | <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | " " | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | " " | no |
-| <a name="input_sleep_amount"></a> [sleep\_amount](#input\_sleep\_amount) | Time duration to delay resource creation | `string` | "6m" | yes |
+| <a name="input_sleep_amount"></a> [sleep\_amount](#input\_sleep\_amount) | Time duration to delay resource creation | `string` | "6m" | no |
 
 ## Outputs
 | Name | Description |
