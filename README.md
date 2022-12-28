@@ -124,6 +124,7 @@ No modules.
 | <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | " " | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | " " | no |
 | <a name="input_sleep_amount"></a> [sleep\_amount](#input\_sleep\_amount) | Time duration to delay resource creation | `string` | "6m" | no |
+| <a name="input_debezium_history_topic"></a> [debezium\_history\_topic](#input\_debezium\_history\_topic) | Database history eventhub topic | `string` | "db-history-topic" | no |
 
 ## Outputs
 | Name | Description |

@@ -108,7 +108,7 @@ data "http" "this" {
       "time.precision.mode" : "connect",
 
       "database.history.kafka.bootstrap.servers" : "${var.eventhub_name}.servicebus.windows.net:9093",
-      "database.history.kafka.topic" : "db-history-topic",
+      "database.history.kafka.topic" : (var.debezium_history_topic),
 
       "database.history.consumer.security.protocol" : "SASL_SSL",
       "database.history.consumer.sasl.mechanism" : "PLAIN",

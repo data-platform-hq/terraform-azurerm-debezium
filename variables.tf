@@ -134,3 +134,9 @@ variable "sleep_amount" {
   description = "Time duration to delay resource creation"
   default     = "6m"
 }
+
+variable "debezium_history_topic" {
+  type        = string
+  description = "Database history eventhub topic"
+  default     = "db-history-topic"
+}
