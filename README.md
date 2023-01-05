@@ -131,9 +131,9 @@ No modules.
 ## Outputs
 | Name | Description |
 |------|-------------|
-| <a name="output_container_name"></a> [name](#output\_container\_name) | Name of the Azure Container Instance where Debezium executes |
-| <a name="output_container_id"></a> [id](#output\_container\_id) | Id of the Azure Container Instance where Debezium executes |
-| <a name="output_container_ip_address"></a> [ip\_address](#output\_container\_ip\_address) | Public IP address of the Azure Container Instance where Debezium executes |
+| <a name="output_container_name"></a> [container\_name](#output\_container\_name) | Name of the Azure Container Instance where Debezium executes |
+| <a name="output_container_id"></a> [container\_id](#output\_container\_id) | Id of the Azure Container Instance where Debezium executes |
+| <a name="output_container_ip_address"></a> [container\_ip\_addresss](#output\_container\_ip\_address) | Public IP address of the Azure Container Instance where Debezium executes |
 | <a name="output_identity"></a> [identity](#output\_identity) | List of identities assigned to the Azure Container Instance |
 | <a name="output_cmk_key_id"></a> [cmk\_key\_id](#output\_cmk\_key\_id) | Customer Managed Key Id, used to encrypt disks on Azure Container Instance |
 | <a name="output_status_code"></a> [status\_code](#output\_status\_code) | HTTP response status code |
