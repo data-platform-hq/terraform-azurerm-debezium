@@ -1,14 +1,14 @@
-output "name" {
+output "container_name" {
   value       = azurerm_container_group.this.name
   description = "Name of the Azure Container Instance where Debezium executes"
 }
 
-output "id" {
+output "container_id" {
   value       = azurerm_container_group.this.id
   description = "Id of the Azure Container Instance where Debezium executes"
 }
 
-output "ip_address" {
+output "container_ip_address" {
   value       = azurerm_container_group.this.ip_address
   description = "Public IP address of the Azure Container Instance where Debezium executes"
 }

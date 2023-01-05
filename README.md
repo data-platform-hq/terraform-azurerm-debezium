@@ -71,17 +71,13 @@ module "debezium" {
 |---------------------------------------------------------------------------|---------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0  |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm)       | >= 3.23.0 |
-| <a name="requirement_time"></a> [time](#requirement\_time)                | >= 0.9.1  |
 | <a name="requirement_http"></a> [http](#requirement\_http)                | >= 3.2.1  |
-
-
 
 ## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.24.0 |
-| <a name="provider_time"></a> [time](#provider\_time) | >= 0.9.1 |
 | <a name="provider_http"></a> [http](#provider\_http) | >= 3.2.1 |
 
 ## Modules
@@ -96,7 +92,12 @@ No modules.
 | [azurerm_key_vault_access_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
 | [azurerm_container_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group) | resource |
 | [azurerm_mssql_firewall_rule.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_firewall_rule) | resource |
-| [time_sleep.this](https://registry.terraform.io/providers/hashicorp/time/latest/docs/resources/sleep) | resource |
+| [azurerm_logic_app_trigger_http_request.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_trigger_http_request) | resource |
+| [azurerm_logic_app_action_custom.config_name](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
+| [azurerm_logic_app_action_custom.config_payload](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
+| [azurerm_logic_app_action_custom.method](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
+| [azurerm_logic_app_action_custom.if_condition](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
+| [azurerm_logic_app_action_custom.switch](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
 | [data.http.this](https://registry.terraform.io/providers/hashicorp/http/latest/docs/data-sources/http) | resource |
 
 ## Inputs
@@ -105,9 +106,10 @@ No modules.
 |------|-------------|------|---------|:--------:|
 | <a name="input_project"></a> [project](#input\_project) | Project name | `string` | n/a | yes |
 | <a name="input_env"></a> [env](#input\_env) | Environment name | `string` | n/a | yes |
-| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | The name of the resource group in which the Log Analytics workspace is created | `string` | n/a | yes |
+| <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | The name of the resource group in which resources is created | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | {} | no |
+| <a name="input_identity_ids"></a> [tags](#input\_identity\_ids) | List of user assigned identity IDs | `list(string)` | null | no |
 | <a name="input_mssql_server_name"></a> [mssql\_server\_name](#input\_mssql\_server\_name) | Azure sql server name | `string` | n/a | yes |
 | <a name="input_mssql_server_id"></a> [mssql\_server\_id](#input\_mssql\_server\_id) | Azure sql server id | `string` | n/a | yes |
 | <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | " " | no |
@@ -123,15 +125,15 @@ No modules.
 | <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | Key Vault Name to ID map | `map(string)` | {} | no |
 | <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | " " | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | " " | no |
-| <a name="input_sleep_amount"></a> [sleep\_amount](#input\_sleep\_amount) | Time duration to delay resource creation | `string` | "6m" | no |
 | <a name="input_debezium_history_topic"></a> [debezium\_history\_topic](#input\_debezium\_history\_topic) | Database history eventhub topic | `string` | "db-history-topic" | no |
-
+| <a name="input_connector_config_name"></a> [debezium\_connector\_config\_name](#input\_connector\_config\_name) | Debezium SQL Connector name to give | `string` | "mssql-config" | no |
+| <a name="input_logic_app_workflow_id"></a> [logic\_app\_workflow\_id](#input\_logic\_app\_workflow\_id) | Id of Logic App Workflow where Actions would be created | `string` | n/a| yes |
 ## Outputs
 | Name | Description |
 |------|-------------|
-| <a name="output_name"></a> [name](#output\_name) | Name of the Azure Container Instance where Debezium executes |
-| <a name="output_container_id"></a> [id](#output\_id) | Id of the Azure Container Instance where Debezium executes |
-| <a name="output_ip_address"></a> [ip\_address](#output\_ip\_address) | Public IP address of the Azure Container Instance where Debezium executes |
+| <a name="output_container_name"></a> [name](#output\_container\_name) | Name of the Azure Container Instance where Debezium executes |
+| <a name="output_container_id"></a> [id](#output\_container\_id) | Id of the Azure Container Instance where Debezium executes |
+| <a name="output_container_ip_address"></a> [ip\_address](#output\_container\_ip\_address) | Public IP address of the Azure Container Instance where Debezium executes |
 | <a name="output_identity"></a> [identity](#output\_identity) | List of identities assigned to the Azure Container Instance |
 | <a name="output_cmk_key_id"></a> [cmk\_key\_id](#output\_cmk\_key\_id) | Customer Managed Key Id, used to encrypt disks on Azure Container Instance |
 | <a name="output_status_code"></a> [status\_code](#output\_status\_code) | HTTP response status code |
