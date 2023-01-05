@@ -19,7 +19,7 @@ output "identity" {
 }
 
 output "cmk_key_id" {
-  value       = azurerm_key_vault_key.this[0].id
+  value       = length(var.key_vault_id) == 0 ? "" : azurerm_key_vault_key.this[keys(var.key_vault_id)[0]].id
   description = "Customer Managed Key Id, used to encrypt disks on Azure Container Instance"
 }
 

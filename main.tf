@@ -27,6 +27,11 @@ resource "azurerm_container_group" "this" {
   restart_policy      = "Never"
   key_vault_key_id    = length(var.key_vault_id) == 0 ? null : azurerm_key_vault_key.this[keys(var.key_vault_id)[0]].id
 
+  identity {
+    type         = var.identity_ids == null ? "SystemAssigned" : "SystemAssigned, UserAssigned"
+    identity_ids = var.identity_ids
+  }
+
   exposed_port {
     port     = 8083
     protocol = "TCP"
@@ -69,55 +74,4 @@ resource "azurerm_mssql_firewall_rule" "this" {
   server_id        = var.mssql_server_id
   start_ip_address = azurerm_container_group.this.ip_address
   end_ip_address   = azurerm_container_group.this.ip_address
-}
-
-resource "time_sleep" "this" {
-  create_duration = var.sleep_amount
-
-  lifecycle {
-    replace_triggered_by = [
-      azurerm_container_group.this
-    ]
-  }
-  depends_on = [azurerm_container_group.this]
-}
-
-locals {
-  sql_table_list = join(",", var.sql_tables)
-}
-
-data "http" "this" {
-  url    = "http://${azurerm_container_group.this.ip_address}:8083/connectors"
-  method = "POST"
-  request_headers = {
-    Accept       = "*/*"
-    Content-Type = "application/json"
-  }
-  request_body = jsonencode({
-    "name" : "sql-server",
-    "config" : {
-      "connector.class" : "io.debezium.connector.sqlserver.SqlServerConnector",
-      "database.hostname" : "${var.mssql_server_name}.database.windows.net",
-      "database.port" : "1433",
-      "database.user" : (var.mssql_username),
-      "database.password" : (var.mssql_password),
-      "database.dbname" : (var.mssql_database_name),
-      "database.server.name" : "cdc",
-      "table.include.list" : (local.sql_table_list),
-      "decimal.handling.mode" : "double",
-      "time.precision.mode" : "connect",
-
-      "database.history.kafka.bootstrap.servers" : "${var.eventhub_name}.servicebus.windows.net:9093",
-      "database.history.kafka.topic" : "db-history-topic",
-
-      "database.history.consumer.security.protocol" : "SASL_SSL",
-      "database.history.consumer.sasl.mechanism" : "PLAIN",
-      "database.history.consumer.sasl.jaas.config" : "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\"password=\"${var.connection_string}\";",
-      "database.history.producer.security.protocol" : "SASL_SSL",
-      "database.history.producer.sasl.mechanism" : "PLAIN",
-      "database.history.producer.sasl.jaas.config" : "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\"password=\"${var.connection_string}\";"
-    }
-  })
-
-  depends_on = [time_sleep.this]
 }

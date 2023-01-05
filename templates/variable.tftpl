@@ -1,0 +1,19 @@
+{
+  "inputs": {
+    "variables": [
+      {
+        "name": "${name}",
+        "type": "${type}",
+        "value": ${value}
+      }
+    ]
+  },
+  "runAfter":
+    %{ if length(run_after) == 0 }
+        {},
+    %{ endif }
+    %{ if length(run_after) != 0 }
+        { "${run_after}": ["Succeeded"] },
+    %{ endif }
+  "type": "InitializeVariable"
+}

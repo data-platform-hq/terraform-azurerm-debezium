@@ -10,7 +10,7 @@ variable "env" {
 
 variable "resource_group" {
   type        = string
-  description = "The name of the resource group in which the Log Analytics workspace is created"
+  description = "The name of the resource group in which resources is created"
 }
 
 variable "location" {
@@ -22,6 +22,12 @@ variable "tags" {
   type        = map(string)
   description = "A mapping of tags to assign to the resource"
   default     = {}
+}
+
+variable "identity_ids" {
+  type        = list(string)
+  description = "List of user assigned identity IDs"
+  default     = null
 }
 
 variable "mssql_server_name" {
@@ -112,7 +118,7 @@ variable "key_vault_id" {
 variable "container_group_object_id" {
   type        = string
   description = "Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity"
-  default     = ""
+  default     = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d"
   validation {
     condition     = length(var.container_group_object_id) == 36 || length(var.container_group_object_id) == 0
     error_message = "UUID has to be either in nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn format or empty string"
@@ -129,8 +135,19 @@ variable "tenant_id" {
   }
 }
 
-variable "sleep_amount" {
+variable "debezium_history_topic" {
   type        = string
-  description = "Time duration to delay resource creation"
-  default     = "6m"
+  description = "Database history eventhub topic"
+  default     = "db-history-topic"
+}
+
+variable "connector_config_name" {
+  type        = string
+  description = "Debezium SQL Connector name to give"
+  default     = "mssql-config"
+}
+
+variable "logic_app_workflow_id" {
+  type        = string
+  description = "Id of Logic App Workflow where Actions would be created"
 }
