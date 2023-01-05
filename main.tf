@@ -36,35 +36,39 @@ resource "azurerm_container_group" "this" {
     port     = 8083
     protocol = "TCP"
   }
-  container {
-    name   = "debezium"
-    image  = "debezium/connect:1.9"
-    cpu    = "2"
-    memory = "4"
 
-    ports {
-      port     = 8083
-      protocol = "TCP"
-    }
+  dynamic "container" {
+    for_each = var.container_config
+    content {
+      name   = container.key
+      image  = container.value.image
+      cpu    = container.value.cpu
+      memory = container.value.memory
 
-    environment_variables = {
-      BOOTSTRAP_SERVERS : "${var.eventhub_name}.servicebus.windows.net:9093"
-      CONNECT_REST_ADVERTISED_HOST_NAME : "azure-container-instance-debezium"
-      CONNECT_REST_PORT : "8083"
-      CONNECT_GROUP_ID : "azure-container-instance-debezium"
-      CONFIG_STORAGE_TOPIC : "config-storage"
-      OFFSET_STORAGE_TOPIC : "offsets-storage"
-      STATUS_STORAGE_TOPIC : "status-storage"
-      KEY_CONVERTER : "org.apache.kafka.connect.storage.StringConverter"
-      VALUE_CONVERTER : "org.apache.kafka.connect.json.JsonConverter"
+      ports {
+        port     = 8083
+        protocol = "TCP"
+      }
 
-      CONNECT_SECURITY_PROTOCOL = "SASL_SSL"
-      CONNECT_SASL_MECHANISM    = "PLAIN"
-      CONNECT_SASL_JAAS_CONFIG  = "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"${var.connection_string}\";"
+      environment_variables = {
+        BOOTSTRAP_SERVERS : "${var.eventhub_name}.servicebus.windows.net:9093"
+        CONNECT_REST_ADVERTISED_HOST_NAME : "azure-container-instance-debezium"
+        CONNECT_REST_PORT : "8083"
+        CONNECT_GROUP_ID : "azure-container-instance-debezium"
+        CONFIG_STORAGE_TOPIC : "config-storage"
+        OFFSET_STORAGE_TOPIC : "offsets-storage"
+        STATUS_STORAGE_TOPIC : "status-storage"
+        KEY_CONVERTER : "org.apache.kafka.connect.storage.StringConverter"
+        VALUE_CONVERTER : "org.apache.kafka.connect.json.JsonConverter"
 
-      CONNECT_PRODUCER_SECURITY_PROTOCOL = "SASL_SSL"
-      CONNECT_PRODUCER_SASL_MECHANISM    = "PLAIN"
-      CONNECT_PRODUCER_SASL_JAAS_CONFIG  = "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"${var.connection_string}\";"
+        CONNECT_SECURITY_PROTOCOL = "SASL_SSL"
+        CONNECT_SASL_MECHANISM    = "PLAIN"
+        CONNECT_SASL_JAAS_CONFIG  = "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"${var.connection_string}\";"
+
+        CONNECT_PRODUCER_SECURITY_PROTOCOL = "SASL_SSL"
+        CONNECT_PRODUCER_SASL_MECHANISM    = "PLAIN"
+        CONNECT_PRODUCER_SASL_JAAS_CONFIG  = "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\" password=\"${var.connection_string}\";"
+      }
     }
   }
 }

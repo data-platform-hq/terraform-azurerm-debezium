@@ -23,6 +23,11 @@ output "cmk_key_id" {
   description = "Customer Managed Key Id, used to encrypt disks on Azure Container Instance"
 }
 
+output "trigger_callback_url" {
+  value       = azurerm_logic_app_trigger_http_request.this.callback_url
+  description = "URL to trigger Logic App Workflow"
+}
+
 output "status_code" {
   value       = data.http.this.status_code
   description = "HTTP response status code"

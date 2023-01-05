@@ -30,6 +30,22 @@ variable "identity_ids" {
   default     = null
 }
 
+variable "container_config" {
+  type = map(object({
+    image  = string
+    cpu    = string
+    memory = string
+  }))
+  description = "Version and capacity config for container"
+  default = {
+    "debezium" = {
+      image  = "debezium/connect:1.9",
+      cpu    = "2",
+      memory = "4"
+    }
+  }
+}
+
 variable "mssql_server_name" {
   type        = string
   description = "Azure sql server name"
