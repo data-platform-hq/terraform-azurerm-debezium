@@ -38,6 +38,17 @@ module "eventhub" {
   eventhub_topic = local.eventhub_topic
 }
 
+module "logic_app_workflow" {
+  source  = "data-platform-hq/logic-app-workflow/azurerm"
+
+  project        = "datahq"
+  env            = "dev"
+  location       = "eastus"
+  name           = "debezium"
+  tags           = local.tags
+  resource_group = "example-rg"
+}
+
 module "debezium" {
   source   = "data-platform-hq/terraform-azurerm-debezium
 
@@ -62,6 +73,8 @@ module "debezium" {
   mssql_password      = "example-azure-sql-password"
   mssql_database_name = local.mssql_db_name
   sql_tables          = local.mssql_tables
+  
+  logic_app_workflow_id  = module.logic_app_workflow.id
 }
 ```
 
