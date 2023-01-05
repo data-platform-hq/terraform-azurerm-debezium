@@ -22,9 +22,9 @@ resource "azurerm_container_group" "this" {
   location            = var.location
   resource_group_name = var.resource_group
   tags                = var.tags
-  ip_address_type     = "Public"
-  os_type             = "Linux"
-  restart_policy      = "Never"
+  ip_address_type     = var.aci_ip_address_type
+  os_type             = var.aci_os_type
+  restart_policy      = var.aci_restart_policy
   key_vault_key_id    = length(var.key_vault_id) == 0 ? null : azurerm_key_vault_key.this[keys(var.key_vault_id)[0]].id
 
   identity {

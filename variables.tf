@@ -46,6 +46,24 @@ variable "container_config" {
   }
 }
 
+variable "aci_ip_address_type" {
+  type        = string
+  description = "Ip address type on Container Instance"
+  default     = "Public"
+}
+
+variable "aci_os_type" {
+  type        = string
+  description = "Container Instance os type"
+  default     = "Linux"
+}
+
+variable "aci_restart_policy" {
+  type        = string
+  description = "Container Instance restart policy"
+  default     = "Never"
+}
+
 variable "mssql_server_name" {
   type        = string
   description = "Azure sql server name"
