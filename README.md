@@ -17,7 +17,7 @@ locals {
   mssql_tables        = ["schema_example.table_name_example"]
   
   # Object id of Azure-managed enterprise application 'Azure Container Instance Service'
-  container_group_object_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" 
+  container_group_object_id = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" 
   
   # Here, create map of target Key Vault name to it's id:
   key_vault_name_to_id_map  = { 
@@ -123,6 +123,10 @@ No modules.
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | {} | no |
 | <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | List of user assigned identity IDs | `list(string)` | null | no |
+| <a name="input_container_config"></a> [container\_config](#input\_container\_config) | Version and capacity config for container | <pre>map(object({<br> image  = string <br> cpu    = string <br> memory = string <br>}))</pre> | <pre>"debezium" = {<br> image  = "debezium/connect:1.9", <br> cpu    = "2", <br> memory = "4" <br>}</pre> | no |
+| <a name="input_aci_ip_address_type"></a> [aci\_ip\_address\_type](#input\_aci\_ip\_address\_type) | Ip address type on Container Instance | `string` | "Public" | no |
+| <a name="input_aci_os_type"></a> [aci\_os\_type](#input\_aci\_os\_type) | Container Instance os type | `string` | "Linux" | no |
+| <a name="input_aci_restart_policy"></a> [aci\_restart\_policy](#input\_aci\_restart\_policy) | Container Instance restart policy | `string` | "Never" | no |
 | <a name="input_mssql_server_name"></a> [mssql\_server\_name](#input\_mssql\_server\_name) | Azure sql server name | `string` | n/a | yes |
 | <a name="input_mssql_server_id"></a> [mssql\_server\_id](#input\_mssql\_server\_id) | Azure sql server id | `string` | n/a | yes |
 | <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | " " | no |
@@ -136,7 +140,7 @@ No modules.
 | <a name="input_key_opts"></a> [key\_opts](#input\_key\_opts) | JSON web key operations: (decrypt,encrypt,sign,unwrapKey,verify,wrapKey) | `list(string)` | <pre>[<br>  "decrypt",<br>  "encrypt",<br>  "sign",<br>  "unwrapKey",<br>  "verify",<br>  "wrapKey"<br>]</pre> | no |
 | <a name="input_access_policy_permissions"></a> [access\_policy\_permissions](#input\_access\_policy\_permissions) | List of key permissions | `list(string)` | <pre>[<br>  "Get",<br>  "List",<br>  "Verify",<br>  "WrapKey",<br>  "UnwrapKey"<br>]</pre> | no |
 | <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | Key Vault Name to ID map | `map(string)` | {} | no |
-| <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" | no |
+| <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | " " | no |
 | <a name="input_debezium_history_topic"></a> [debezium\_history\_topic](#input\_debezium\_history\_topic) | Database history eventhub topic | `string` | "db-history-topic" | no |
 | <a name="input_connector_config_name"></a> [connector\_config\_name](#input\_connector\_config\_name) | Debezium SQL Connector name to give | `string` | "mssql-config" | no |
