@@ -17,7 +17,7 @@ locals {
   mssql_tables        = ["schema_example.table_name_example"]
   
   # Object id of Azure-managed enterprise application 'Azure Container Instance Service'
-  container_group_object_id = "8120c8cf-c03f-4bb8-b319-603a3ab38e4d" 
+  container_group_object_id = "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" 
   
   # Here, create map of target Key Vault name to it's id:
   key_vault_name_to_id_map  = { 
@@ -122,7 +122,7 @@ No modules.
 | <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | The name of the resource group in which resources is created | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | {} | no |
-| <a name="input_identity_ids"></a> [tags](#input\_identity\_ids) | List of user assigned identity IDs | `list(string)` | null | no |
+| <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | List of user assigned identity IDs | `list(string)` | null | no |
 | <a name="input_mssql_server_name"></a> [mssql\_server\_name](#input\_mssql\_server\_name) | Azure sql server name | `string` | n/a | yes |
 | <a name="input_mssql_server_id"></a> [mssql\_server\_id](#input\_mssql\_server\_id) | Azure sql server id | `string` | n/a | yes |
 | <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | " " | no |
@@ -136,11 +136,11 @@ No modules.
 | <a name="input_key_opts"></a> [key\_opts](#input\_key\_opts) | JSON web key operations: (decrypt,encrypt,sign,unwrapKey,verify,wrapKey) | `list(string)` | <pre>[<br>  "decrypt",<br>  "encrypt",<br>  "sign",<br>  "unwrapKey",<br>  "verify",<br>  "wrapKey"<br>]</pre> | no |
 | <a name="input_access_policy_permissions"></a> [access\_policy\_permissions](#input\_access\_policy\_permissions) | List of key permissions | `list(string)` | <pre>[<br>  "Get",<br>  "List",<br>  "Verify",<br>  "WrapKey",<br>  "UnwrapKey"<br>]</pre> | no |
 | <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | Key Vault Name to ID map | `map(string)` | {} | no |
-| <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | " " | no |
+| <a name="input_container_group_object_id"></a> [container\_group\_object\_id](#input\_container\_group\_object\_id) | Azure Container Group Instance Service object id, used to create Key Vault Access Policy for Container Group identity | `string` | "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id where Azure Container Group Instance Service identity is assigned | `string` | " " | no |
 | <a name="input_debezium_history_topic"></a> [debezium\_history\_topic](#input\_debezium\_history\_topic) | Database history eventhub topic | `string` | "db-history-topic" | no |
-| <a name="input_connector_config_name"></a> [debezium\_connector\_config\_name](#input\_connector\_config\_name) | Debezium SQL Connector name to give | `string` | "mssql-config" | no |
-| <a name="input_logic_app_workflow_id"></a> [logic\_app\_workflow\_id](#input\_logic\_app\_workflow\_id) | Id of Logic App Workflow where Actions would be created | `string` | n/a| yes |
+| <a name="input_connector_config_name"></a> [connector\_config\_name](#input\_connector\_config\_name) | Debezium SQL Connector name to give | `string` | "mssql-config" | no |
+| <a name="input_logic_app_workflow_id"></a> [logic\_app\_workflow\_id](#input\_logic\_app\_workflow\_id) | Id of Logic App Workflow where Actions would be created | `string` | n/a | yes |
 ## Outputs
 | Name | Description |
 |------|-------------|
@@ -149,6 +149,7 @@ No modules.
 | <a name="output_container_ip_address"></a> [container\_ip\_addresss](#output\_container\_ip\_address) | Public IP address of the Azure Container Instance where Debezium executes |
 | <a name="output_identity"></a> [identity](#output\_identity) | List of identities assigned to the Azure Container Instance |
 | <a name="output_cmk_key_id"></a> [cmk\_key\_id](#output\_cmk\_key\_id) | Customer Managed Key Id, used to encrypt disks on Azure Container Instance |
+| <a name="output_trigger_callback_url"></a> [trigger\_callback\_url](#output\_trigger\_callback\_url) | URL to trigger Logic App Workflow |
 | <a name="output_status_code"></a> [status\_code](#output\_status\_code) | HTTP response status code |
 
 
