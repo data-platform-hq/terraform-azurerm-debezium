@@ -1,0 +1,182 @@
+{
+  "cases": {
+    "DELETE": {
+        "actions": {
+            "delete-action": {
+                "inputs": {
+                    "headers": {
+                        "Accept": "*/*",
+                        "Content-Type": "application/json"
+                    },
+                    "method": "DELETE",
+                    "uri": "http://${debezium_fqdn}:8083/connectors/@{variables(\u0027${config_name}\u0027)}"
+                },
+                "runAfter": {},
+                "type": "Http"
+            },
+            "delete-response": {
+                "inputs": {
+                    "body": "DELETE request is successful",
+                    "statusCode": 200
+                },
+                "kind": "Http",
+                "operationOptions": "Asynchronous",
+                "runAfter": {
+                    "delete-action": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "case": "DELETE"
+    },
+    "POST": {
+        "actions": {
+            "post-action": {
+                "inputs": {
+                    "body": {
+                        "config": "@variables(\u0027${config_payload_name}\u0027)",
+                        "name": "@{variables(\u0027${config_name}\u0027)}"
+                    },
+                    "headers": {
+                        "Accept": "*/*",
+                        "Content-Type": "application/json"
+                    },
+                    "method": "POST",
+                    "retryPolicy": {
+                        "count": 5,
+                        "interval": "PT45S",
+                        "type": "fixed"
+                    },
+                    "uri": "http://${debezium_fqdn}:8083/connectors"
+                },
+                "runAfter": {},
+                "type": "Http"
+            },
+            "post-switch": {
+                "cases": {
+                    "Case": {
+                        "actions": {
+                            "put-action-safe": {
+                                "inputs": {
+                                    "body": "@variables(\u0027${config_payload_name}\u0027)",
+                                    "headers": {
+                                        "Accept": "*/*",
+                                        "Content-Type": "application/json"
+                                    },
+                                    "method": "PUT",
+                                    "retryPolicy": {
+                                        "count": 5,
+                                        "interval": "PT45S",
+                                        "type": "fixed"
+                                    },
+                                    "uri": "http://${debezium_fqdn}:8083/connectors/@{variables(\u0027${config_name}\u0027)}/config"
+                                },
+                                "runAfter": {},
+                                "type": "Http"
+                            },
+                            "put-response-safe": {
+                                "inputs": {
+                                    "body": "PUT request is successful",
+                                    "statusCode": 200
+                                },
+                                "kind": "Http",
+                                "operationOptions": "Asynchronous",
+                                "runAfter": {
+                                    "put-action-safe": [
+                                        "Succeeded"
+                                    ]
+                                },
+                                "type": "Response"
+                            }
+                        },
+                        "case": 409
+                    }
+                },
+                "default": {
+                    "actions": {
+                        "post-response-safe": {
+                            "inputs": {
+                                "body": "POST request is successful",
+                                "statusCode": 200
+                            },
+                            "kind": "Http",
+                            "operationOptions": "Asynchronous",
+                            "runAfter": {},
+                            "type": "Response"
+                        }
+                    }
+                },
+                "expression": "@outputs('post-action')['statusCode']",
+                "runAfter": {
+                    "post-action": [
+                        "Succeeded",
+                        "Failed"
+                    ]
+                },
+                "type": "Switch"
+            }
+        },
+        "case": "POST"
+    },
+    "PUT": {
+        "actions": {
+            "put-action": {
+                "inputs": {
+                    "body": "@variables(\u0027${config_payload_name}\u0027)",
+                    "headers": {
+                        "Accept": "*/*",
+                        "Content-Type": "application/json"
+                    },
+                    "method": "PUT",
+                    "retryPolicy": {
+                        "count": 5,
+                        "interval": "PT45S",
+                        "type": "fixed"
+                    },
+                    "uri": "http://${debezium_fqdn}:8083/connectors/@{variables(\u0027${config_name}\u0027)}/config"
+                },
+                "runAfter": {},
+                "type": "Http"
+            },
+            "put-response": {
+                "inputs": {
+                    "body": "PUT request is successful",
+                    "statusCode": 200
+                },
+                "kind": "Http",
+                "operationOptions": "Asynchronous",
+                "runAfter": {
+                    "put-action": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Response"
+            }
+        },
+        "case": "PUT"
+    }
+    },
+      "default": {
+          "actions": {
+              "default-response": {
+                  "inputs": {
+                      "body": "Invalid request type. Try POST, DELETE or PUT",
+                      "statusCode": 400
+                  },
+                  "kind": "Http",
+                  "operationOptions": "Asynchronous",
+                  "runAfter": {},
+                  "type": "Response"
+              }
+          }
+      },
+      "expression": "@variables('method')",
+      "runAfter": {
+          "${condition_name}": [
+              "Succeeded"
+          ]
+      },
+      "type": "Switch"
+  }

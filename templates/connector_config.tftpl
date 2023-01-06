@@ -1,0 +1,20 @@
+{
+  "connector.class" : "io.debezium.connector.sqlserver.SqlServerConnector",
+  "database.hostname" : "${mssql_server_name}.database.windows.net",
+  "database.port" : "1433",
+  "database.user" : "${mssql_username}",
+  "database.password" : "${mssql_password}",
+  "database.dbname" : "${mssql_database_name}",
+  "database.server.name" : "cdc",
+  "table.include.list" : "${sql_tables}",
+  "decimal.handling.mode" : "double",
+  "time.precision.mode" : "connect",
+  "database.history.kafka.bootstrap.servers" : "${eventhub_name}.servicebus.windows.net:9093",
+  "database.history.kafka.topic" : "${debezium_history_topic}",
+  "database.history.consumer.security.protocol" : "SASL_SSL",
+  "database.history.consumer.sasl.mechanism" : "PLAIN",
+  "database.history.consumer.sasl.jaas.config" : "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\"password=\"${connection_string}\";",
+  "database.history.producer.security.protocol" : "SASL_SSL",
+  "database.history.producer.sasl.mechanism" : "PLAIN",
+  "database.history.producer.sasl.jaas.config" : "org.apache.kafka.common.security.plain.PlainLoginModule required username=\"$ConnectionString\"password=\"${connection_string}\";"
+}

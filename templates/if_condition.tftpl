@@ -1,0 +1,28 @@
+{
+  "actions": {
+      "set-method-variable": {
+          "inputs": {
+              "name": "${variable_name}",
+              "value": "${variable_value}"
+          },
+          "runAfter": {},
+          "type": "SetVariable"
+      }
+  },
+  "expression": {
+      "and": [
+          {
+              "equals": [
+                  "@variables('${variable_name}')",
+                  ""
+              ]
+          }
+      ]
+  },
+  "runAfter": {
+      "${variable_name}": [
+          "Succeeded"
+      ]
+  },
+  "type": "If"
+}
