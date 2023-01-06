@@ -1,3 +1,12 @@
+resource "azurerm_key_vault_access_policy" "this" {
+  for_each = length(var.tenant_id) != 0 && length(var.container_group_object_id) != 0 ? var.key_vault_id : {}
+
+  key_vault_id    = each.value
+  tenant_id       = var.tenant_id
+  object_id       = var.container_group_object_id
+  key_permissions = var.access_policy_permissions
+}
+
 resource "azurerm_key_vault_key" "this" {
   for_each = length(var.tenant_id) != 0 && length(var.container_group_object_id) != 0 ? var.key_vault_id : {}
 
@@ -6,15 +15,8 @@ resource "azurerm_key_vault_key" "this" {
   key_size     = var.key_size
   key_vault_id = each.value
   key_opts     = var.key_opts
-}
-
-resource "azurerm_key_vault_access_policy" "this" {
-  for_each = length(var.tenant_id) != 0 && length(var.container_group_object_id) != 0 ? var.key_vault_id : {}
-
-  key_vault_id    = each.value
-  tenant_id       = var.tenant_id
-  object_id       = var.container_group_object_id
-  key_permissions = var.access_policy_permissions
+  
+  depends_on = [azurerm_key_vault_access_policy.this]
 }
 
 resource "azurerm_container_group" "this" {
@@ -25,6 +27,7 @@ resource "azurerm_container_group" "this" {
   ip_address_type     = var.aci_ip_address_type
   os_type             = var.aci_os_type
   restart_policy      = var.aci_restart_policy
+  dns_name_label      = "debezium-${var.project}-${var.env}"
   key_vault_key_id    = length(var.key_vault_id) == 0 ? null : azurerm_key_vault_key.this[keys(var.key_vault_id)[0]].id
 
   identity {
