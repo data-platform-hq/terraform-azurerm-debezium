@@ -15,7 +15,7 @@ resource "azurerm_key_vault_key" "this" {
   key_size     = var.key_size
   key_vault_id = each.value
   key_opts     = var.key_opts
-  
+
   depends_on = [azurerm_key_vault_access_policy.this]
 }
 
