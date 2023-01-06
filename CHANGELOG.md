@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.0...v1.0.1) (2023-01-06)
+
+
+### Bug Fixes
+
+* added depends on and fqdn param ([92ccfe5](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/92ccfe563600a2f90007af581f6e2777d0383f90))
+* fmt ([aeecc2e](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/aeecc2e72cbbf958b04dfa1082229bdc0c25c9d0))
+
 # 1.0.0 (2023-01-06)
 
 
