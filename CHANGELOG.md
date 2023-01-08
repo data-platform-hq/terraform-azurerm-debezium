@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.1...v1.0.2) (2023-01-08)
+
+
+### Bug Fixes
+
+* removed identity block ([c9f037f](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/c9f037f7bdd39e7c954a377efcfb33b9b27ac675))
+
 ## [1.0.1](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.0...v1.0.1) (2023-01-06)
 
 
