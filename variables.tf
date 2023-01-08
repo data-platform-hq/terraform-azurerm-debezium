@@ -24,12 +24,6 @@ variable "tags" {
   default     = {}
 }
 
-variable "identity_ids" {
-  type        = list(string)
-  description = "List of user assigned identity IDs"
-  default     = null
-}
-
 variable "container_config" {
   type = map(object({
     image  = string

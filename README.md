@@ -122,7 +122,6 @@ No modules.
 | <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | The name of the resource group in which resources is created | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | Specifies the supported Azure location where the resource exists | `string` | n/a | yes |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(string)` | {} | no |
-| <a name="input_identity_ids"></a> [identity\_ids](#input\_identity\_ids) | List of user assigned identity IDs | `list(string)` | null | no |
 | <a name="input_container_config"></a> [container\_config](#input\_container\_config) | Version and capacity config for container | <pre>map(object({<br> image  = string <br> cpu    = string <br> memory = string <br>}))</pre> | <pre>"debezium" = {<br> image  = "debezium/connect:1.9", <br> cpu    = "2", <br> memory = "4" <br>}</pre> | no |
 | <a name="input_aci_ip_address_type"></a> [aci\_ip\_address\_type](#input\_aci\_ip\_address\_type) | Ip address type on Container Instance | `string` | "Public" | no |
 | <a name="input_aci_os_type"></a> [aci\_os\_type](#input\_aci\_os\_type) | Container Instance os type | `string` | "Linux" | no |
