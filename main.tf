@@ -30,11 +30,6 @@ resource "azurerm_container_group" "this" {
   dns_name_label      = "debezium-${var.project}-${var.env}"
   key_vault_key_id    = length(var.key_vault_id) == 0 ? null : azurerm_key_vault_key.this[keys(var.key_vault_id)[0]].id
 
-  identity {
-    type         = var.identity_ids == null ? "SystemAssigned" : "SystemAssigned, UserAssigned"
-    identity_ids = var.identity_ids
-  }
-
   exposed_port {
     port     = 8083
     protocol = "TCP"
