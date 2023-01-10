@@ -68,7 +68,6 @@ module "debezium" {
   
   # Azure SQL specific variables
   mssql_server_name   = "example-server"
-  mssql_server_id     = "example-id"
   mssql_username      = "admin"
   mssql_password      = "example-azure-sql-password"
   mssql_database_name = local.mssql_db_name
@@ -104,7 +103,6 @@ No modules.
 | [azurerm_key_vault_key.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_key) | resource |
 | [azurerm_key_vault_access_policy.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
 | [azurerm_container_group.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/container_group) | resource |
-| [azurerm_mssql_firewall_rule.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_firewall_rule) | resource |
 | [azurerm_logic_app_trigger_http_request.this](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_trigger_http_request) | resource |
 | [azurerm_logic_app_action_custom.config_name](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
 | [azurerm_logic_app_action_custom.config_payload](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/logic_app_action_custom) | resource |
@@ -127,7 +125,6 @@ No modules.
 | <a name="input_aci_os_type"></a> [aci\_os\_type](#input\_aci\_os\_type) | Container Instance os type | `string` | "Linux" | no |
 | <a name="input_aci_restart_policy"></a> [aci\_restart\_policy](#input\_aci\_restart\_policy) | Container Instance restart policy | `string` | "Never" | no |
 | <a name="input_mssql_server_name"></a> [mssql\_server\_name](#input\_mssql\_server\_name) | Azure sql server name | `string` | n/a | yes |
-| <a name="input_mssql_server_id"></a> [mssql\_server\_id](#input\_mssql\_server\_id) | Azure sql server id | `string` | n/a | yes |
 | <a name="input_mssql_database_name"></a> [mssql\_database\_name](#input\_mssql\_database\_name) | Azure sql database | `string` | " " | no |
 | <a name="input_sql_tables"></a> [sql\_tables](#input\_sql\_tables) | Azure sql tables names | `list(string)` | [] | no |
 | <a name="input_connection_string"></a> [connection\_string](#input\_connection\_string) | Azurerm eventhub namespace connection string | `string` | n/a | yes |
