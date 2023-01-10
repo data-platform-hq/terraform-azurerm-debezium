@@ -72,6 +72,8 @@ resource "azurerm_container_group" "this" {
 }
 
 resource "azurerm_mssql_firewall_rule" "this" {
+  count = azurerm_container_group.this.ip_address == "" ? 0 : 1
+
   name             = "debezium-${var.project}-${var.env}-${var.location}"
   server_id        = var.mssql_server_id
   start_ip_address = azurerm_container_group.this.ip_address
