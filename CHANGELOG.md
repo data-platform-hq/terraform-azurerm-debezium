@@ -1,3 +1,11 @@
+## [1.0.4](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.3...v1.0.4) (2023-01-10)
+
+
+### Bug Fixes
+
+* removed firewall rule from main ([b6f98e9](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/b6f98e9aaf375215437e3605a82fcdfa3dd38b39))
+* removed server id var ([3e755d6](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/3e755d6ccc4e7456997899d795a7f3d6f3e5feb2))
+
 ## [1.0.3](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.2...v1.0.3) (2023-01-10)
 
 
