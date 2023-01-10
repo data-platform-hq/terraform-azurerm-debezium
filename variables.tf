@@ -63,11 +63,6 @@ variable "mssql_server_name" {
   description = "Azure sql server name"
 }
 
-variable "mssql_server_id" {
-  type        = string
-  description = "Azure sql server id"
-}
-
 variable "mssql_database_name" {
   type        = string
   description = "Azure sql database"
