@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.2...v1.0.3) (2023-01-10)
+
+
+### Bug Fixes
+
+* firewall condition ([aec6bad](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/aec6bad90526d4f3f51bd9d310a73b9e6aa594f2))
+
 ## [1.0.2](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.1...v1.0.2) (2023-01-08)
 
 
