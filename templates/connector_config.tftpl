@@ -7,6 +7,7 @@
   "database.dbname" : "${mssql_database_name}",
   "database.server.name" : "cdc",
   "table.include.list" : "${sql_tables}",
+  "table.whitelist" : "${sql_tables}",
   "decimal.handling.mode" : "double",
   "time.precision.mode" : "connect",
   "database.history.kafka.bootstrap.servers" : "${eventhub_name}.servicebus.windows.net:9093",
