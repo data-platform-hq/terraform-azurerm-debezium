@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.4...v1.0.5) (2023-02-02)
+
+
+### Bug Fixes
+
+* add tables whitelist parameter ([5b3ae9d](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/5b3ae9d03903769937d1736117284b2856849d66))
+
 ## [1.0.4](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.3...v1.0.4) (2023-01-10)
 
 
