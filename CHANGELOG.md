@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.5...v1.1.0) (2024-09-10)
+
+
+### Bug Fixes
+
+* replaced pre-commit repo docs creation/update by GH Actions ([ffdffa7](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/ffdffa722db455ca1853b5863c89403b6d19a504))
+
+
+### Features
+
+* upgrade to AzureRM v4 ([6d26b75](https://github.com/data-platform-hq/terraform-azurerm-debezium/commit/6d26b75e7b4e638bbd6ff72df7f8ea5954327694))
+
 ## [1.0.5](https://github.com/data-platform-hq/terraform-azurerm-debezium/compare/v1.0.4...v1.0.5) (2023-02-02)
 
 
