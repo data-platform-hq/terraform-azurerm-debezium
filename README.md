@@ -83,15 +83,14 @@ module "debezium" {
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 3.23.0 |
-| <a name="requirement_http"></a> [http](#requirement\_http) | >= 3.2.1 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | >= 4.0.1 |
+
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 3.23.0 |
-| <a name="provider_http"></a> [http](#provider\_http) | >= 3.2.1 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | >= 4.0.1 |
 
 ## Modules
 
@@ -154,6 +153,7 @@ No modules.
 | <a name="output_identity"></a> [identity](#output\_identity) | List of identities assigned to the Azure Container Instance |
 | <a name="output_status_code"></a> [status\_code](#output\_status\_code) | HTTP response status code |
 | <a name="output_trigger_callback_url"></a> [trigger\_callback\_url](#output\_trigger\_callback\_url) | URL to trigger Logic App Workflow |
+
 <!-- END_TF_DOCS -->
 
 ## License
